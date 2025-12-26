@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import type { Todo } from "../App";
 
@@ -15,12 +14,33 @@ export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoList
 	const [editTodos, setEditTodos] = useState<number | null>(null);
 	const [editText, setEditText] = useState<string>("");
 
+	useEffect(() => {
+		// document.addEventListener("click");
+
+		const handleClick = (e: MouseEvent) => {
+			const target = e.target as HTMLElement;
+
+			if (!target.closest(".edit") && !target.closest(".menu") && !target.closest(".item-edit")) {
+				setOpenMenuId(null);
+			}
+		};
+		const handleKey = (e: KeyboardEvent) => {
+			if (e.key === "Escape") {
+				setOpenMenuId(null);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClick);
+		document.addEventListener("keydown", handleKey);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClick);
+			document.removeEventListener("keydown", handleKey);
+		};
+	}, []);
+
 	const openMenu = (id: number) => {
-		if (openMenuId === id) {
-			setOpenMenuId(null);
-		} else {
-			setOpenMenuId(id);
-		}
+		setOpenMenuId(openMenuId === id ? null : id);
 	};
 
 	const startEdit = (id: number) => {
@@ -43,7 +63,7 @@ export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoList
 	};
 
 	return (
-		<div>
+		<div className="list-container">
 			{todos.length === 0 ? (
 				<p>No Task Yet</p>
 			) : (
@@ -78,7 +98,7 @@ export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoList
 									</div>
 
 									<div className="item-edit">
-										<span onClick={() => openMenu(todo.id)} className="material-symbols-outlined">
+										<span onClick={() => openMenu(todo.id)} className="material-symbols-outlined ">
 											more_horiz
 										</span>
 									</div>

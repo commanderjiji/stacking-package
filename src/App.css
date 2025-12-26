@@ -20,6 +20,12 @@ body {
 	text-align: left;
 }
 
+.clock {
+	font-size: 20px;
+	font-weight: 500;
+	margin: 10px 0 10px 5px;
+}
+
 .todo-form {
 	margin: 50px 0px 30px 0px;
 }
@@ -48,6 +54,10 @@ body {
 
 .todo-add:hover {
 	background-color: #3ca8f6;
+}
+
+.list-container {
+	margin-top: 20px;
 }
 
 .todo-list {

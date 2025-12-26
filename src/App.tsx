@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import TodoInput from "./components/TodoInput";
@@ -33,10 +32,21 @@ export default function App() {
 		setTodos(todos.filter((todo) => todo.id !== id));
 	};
 
+	// Time
+	let clock = new Date().getHours();
+	const twelveHourFormat = clock % 12;
+
 	return (
 		<div className="container">
 			<div className="header-con">
 				<h1 className="header">TO DO LIST</h1>
+			</div>
+
+			{/* Time */}
+			<div className="clock">
+				<p>
+					{twelveHourFormat} {clock >= 12 ? "PM" : "AM"}
+				</p>
 			</div>
 
 			<TodoInput onAddTodo={addTodo} />

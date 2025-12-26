@@ -1,6 +1,5 @@
 //@ts-check
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface InputProps {
 	onAddTodo: (value: string) => void;
@@ -22,6 +21,7 @@ export default function TodoInput({ onAddTodo }: InputProps) {
 			setInput(""); // Clear input after adding
 		}
 	};
+
 	return (
 		<div>
 			<input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} className="input" placeholder="Add Todo" />
