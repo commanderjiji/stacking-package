@@ -1,43 +1,48 @@
 import React from "react";
+import { useState } from "react";
 import "./App.css";
-import TodoApp from "./TodoApp";
 
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 
+export type Todo = {
+	id: number;
+	text: string;
+	completed: boolean;
+};
+
 export default function App() {
+	const [todos, setTodos] = useState<Todo[]>([]);
+
+	const addTodo = (text: string) => {
+		if (text.trim() !== "") {
+			setTodos([{ id: Date.now(), text: text, completed: false }, ...todos]);
+		}
+	};
+
+	const toggleTodo = (id: number) => {
+		setTodos(todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)));
+	};
+
+	const editTodo = (id: number, newText: string) => {
+		//
+		setTodos(todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo)));
+	};
+
+	const deleteTodo = (id: number) => {
+		setTodos(todos.filter((todo) => todo.id !== id));
+	};
+
 	return (
 		<div className="container">
 			<div className="header-con">
 				<h1 className="header">TO DO LIST</h1>
 			</div>
 
-			{/* FOR LATER FORM */}
-			{/* <form action="" className="form">
-				<button className="add-btn">+ Add Task</button>
-				
+			<TodoInput onAddTodo={addTodo} />
 
-				<ul className="list-con">
-					<li className="items">
-						<div className="task-item">
-							<div className="task-desc">
-								<h3>Buy groceries</h3>
-								<p>Due: Today at 6 PM</p>
-							</div>
-							<div className="task-check">
-								<input type="checkbox" name="option1" value="Option1" className="check"></input>
-							</div>
-						</div>
-					</li>
-					<li className="items">Item 2</li>
-					<li className="items">Item 3</li>
-					<li className="items">Item 4</li>
-				</ul>
-			</form> */}
-
-			<TodoInput />
-			<TodoApp />
-			<TodoList />
+			{/* <TodoApp /> */}
+			<TodoList todos={todos} onToggle={toggleTodo} onEdit={editTodo} onDelete={deleteTodo} />
 		</div>
 	);
 }
