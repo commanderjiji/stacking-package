@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import type { Todo } from "../App";
 
@@ -13,6 +13,14 @@ export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoList
 	const [openMenuId, setOpenMenuId] = useState<number | null>(null);
 	const [editTodos, setEditTodos] = useState<number | null>(null);
 	const [editText, setEditText] = useState<string>("");
+
+	const editInputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if (editTodos !== null && editInputRef.current) {
+			editInputRef.current.focus();
+		}
+	}, [editTodos]);
 
 	useEffect(() => {
 		// document.addEventListener("click");
@@ -72,7 +80,17 @@ export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoList
 						<li className="todo-item">
 							{editTodos === todo.id ? (
 								<div className="edit">
-									<input type="text" value={editText} onChange={(e) => setEditText(e.target.value)} className="edit-input" onKeyDown={(e) => e.key === "Enter" && saveEdit()} />
+									<input
+										ref={editInputRef}
+										type="text"
+										value={editText}
+										onChange={(e) => setEditText(e.target.value)}
+										className="edit-input"
+										onKeyDown={(e) => {
+											e.key === "Enter" && saveEdit();
+											e.key === "Escape" && cancelEdit();
+										}}
+									/>
 
 									<span onClick={saveEdit} className="material-symbols-outlined edit-save">
 										check
