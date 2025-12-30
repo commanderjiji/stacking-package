@@ -1,3 +1,5 @@
+/* @import "tailwindcss"; */
+
 * {
 	margin: 0;
 	font-family: "Metropolis";
@@ -7,17 +9,19 @@ body {
 	background-color: #edeef0;
 }
 
-.container {
-	padding: 30px;
-}
-
 .header-con {
 	width: 100%;
 }
 
-.header {
+.todo-header {
 	font-size: 60px;
 	text-align: left;
+}
+
+.clock {
+	font-size: 20px;
+	font-weight: 500;
+	margin: 10px 0 10px 5px;
 }
 
 .todo-form {
@@ -50,14 +54,18 @@ body {
 	background-color: #3ca8f6;
 }
 
+.list-container {
+	margin-top: 20px;
+}
+
 .todo-list {
 	margin: 0;
 	padding: 0;
 }
 
 .todo-item {
-	padding: 20px 0px 20px 30px;
-	border-radius: 15px;
+	padding: 10px 0px 10px 30px;
+	border-radius: 99px;
 	display: flex;
 	align-items: center;
 	background-color: #fff;
@@ -111,9 +119,6 @@ body {
 	width: 10%;
 	display: flex;
 
-	/* padding-left: 20px; */
-	/* padding: 8px; */
-
 	left: 100%;
 	position: absolute;
 	flex-direction: column;
@@ -125,7 +130,6 @@ body {
 
 .menu > span {
 	display: flex;
-	/* height: 50%; */
 	flex: 1;
 	border-radius: 10px;
 	align-items: center;
@@ -135,9 +139,6 @@ body {
 	margin: 0;
 	padding-top: 0;
 	padding-bottom: 0;
-
-	/* padding-left: 10px; */
-	/* height: auto; */
 }
 
 .menu > span:hover {
@@ -149,7 +150,6 @@ body {
 	display: flex;
 	align-items: center;
 	width: 100%;
-	/* flex-direction: row; */
 }
 
 .edit > span {
@@ -182,7 +182,7 @@ body {
 
 .edit .edit-input {
 	height: 50px;
-	/* width: 50%; */
+
 	outline: none;
 	border: none;
 	border-radius: 999px;
