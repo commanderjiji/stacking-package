@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import type { Todo } from "../App";
+// import type { Todo } from "../App";
+import type { Todo } from "../types/todo";
 
 type TodoListProps = {
 	todos: Todo[];

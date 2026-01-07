@@ -1,37 +1,12 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
 import Header from "./components/layout/Header";
-import AddButton from "./components/ui/AddButton";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
-
-export type Todo = {
-	id: number;
-	text: string;
-	completed: boolean;
-};
+import { useTodos } from "./hooks/useTodos";
 
 export default function App() {
-	const [todos, setTodos] = useState<Todo[]>([]);
-
-	const addTodo = (text: string) => {
-		if (text.trim() !== "") {
-			setTodos([{ id: Date.now(), text: text, completed: false }, ...todos]);
-		}
-	};
-
-	const toggleTodo = (id: number) => {
-		setTodos(todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)));
-	};
-
-	const editTodo = (id: number, newText: string) => {
-		//
-		setTodos(todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo)));
-	};
-
-	const deleteTodo = (id: number) => {
-		setTodos(todos.filter((todo) => todo.id !== id));
-	};
+	const { todos, addTodo, toggleTodo, editTodo, deleteTodo } = useTodos();
 
 	// Time
 	let clock = new Date().getHours();
