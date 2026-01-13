@@ -28,7 +28,7 @@ export default function TodoInput({ onAddTodo }: InputProps) {
 		<div className="flex mb-5">
 			<input className="input w-1/2 mr-2.5 outline-none bg-white shadow-xs rounded-full px-5 h-12" type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="Add Todo" />
 
-			<AddButton onClick={onHandleSubmit} />
+			<AddButton label="Add" onClick={onHandleSubmit} />
 		</div>
 	);
 }
