@@ -10,11 +10,11 @@ type TodoListProps = {
 
 export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
 	if (todos.length === 0) {
-		return <p>No Task Yet</p>;
+		return <p className="py-5">No Task Yet</p>;
 	}
 
 	return (
-		<ul className="list-container ">
+		<ul className="list-container my-5">
 			{todos.map((todo) => (
 				<TodoItems key={todo.id} todo={todo} onToggle={onToggle} onEdit={onEdit} onDelete={onDelete} />
 			))}
