@@ -1,51 +1,90 @@
 import { useReducer } from "react";
 import type { Todo } from "../types/todo";
 
-type Action = { type: "ADD_TODO"; payload: string } | { type: "TOGGLE_TODO"; payload: number } | { type: "EDIT_TODO"; payload: { id: number; title: string } } | { type: "DELETE_TODO"; payload: number } | { type: "CLEAR_COMPLETED" } | { type: "TOGGLE_ALL" } | { type: "CLEAR_ALL" };
+type AddTodoAction = {
+	type: "ADD_TODO";
+	title: string;
+};
+type ToggleTodoAction = {
+	type: "TOGGLE_TODO";
+	id: number;
+};
+type EditTodoAction = {
+	type: "EDIT_TODO";
+	id: number;
+	title: string;
+};
+type DeleteTodoAction = {
+	type: "DELETE_TODO";
+	id: number;
+};
+type clearCompletedAction = {
+	type: "CLEAR_COMPLETED";
+};
+type ToggleAllAction = {
+	type: "TOGGLE_ALL";
+};
+type ClearAllAction = {
+	type: "CLEAR_ALL";
+};
+
+type Action = AddTodoAction | ToggleTodoAction | EditTodoAction | DeleteTodoAction | clearCompletedAction | ToggleAllAction | ClearAllAction;
+
+const initialTodos: Todo[] = [];
+
+// type Action = { type: "ADD_TODO"; payload: string } | { type: "TOGGLE_TODO"; payload: number } | { type: "EDIT_TODO"; payload: { id: number; title: string } } | { type: "DELETE_TODO"; payload: number } | { type: "CLEAR_COMPLETED" } | { type: "TOGGLE_ALL" } | { type: "CLEAR_ALL" };
 
 function todosReducer(state: Todo[], action: Action): Todo[] {
 	switch (action.type) {
-		case "ADD_TODO":
-			return [{ id: Date.now(), title: action.payload, completed: false }, ...state];
-		case "TOGGLE_TODO":
-			return state.map((todo) => (todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo));
-		case "EDIT_TODO":
-			return state.map((todo) => (todo.id === action.payload.id ? { ...todo, title: action.payload.title } : todo));
-		case "DELETE_TODO":
-			return state.filter((todo) => todo.id !== action.payload);
-		case "CLEAR_COMPLETED":
+		case "ADD_TODO": {
+			return [{ id: Date.now(), title: action.title, completed: false }, ...state];
+		}
+		case "TOGGLE_TODO": {
+			return state.map((todo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo));
+		}
+		case "EDIT_TODO": {
+			return state.map((todo) => (todo.id === action.id ? { ...todo, title: action.title } : todo));
+		}
+		case "DELETE_TODO": {
+			return state.filter((todo) => todo.id !== action.id);
+		}
+		case "CLEAR_COMPLETED": {
 			return state.filter((todo) => !todo.completed);
-		case "TOGGLE_ALL":
+		}
+		case "TOGGLE_ALL": {
 			const allCompleted = state.every((todo) => todo.completed);
 			return state.map((todo) => ({
 				...todo,
 				completed: !allCompleted,
 			}));
-		case "CLEAR_ALL":
+		}
+		case "CLEAR_ALL": {
 			return [];
+		}
 
-		default:
+		default: {
 			return state;
+		}
 	}
 }
 
 export function useTodos() {
-	const [todos, dispatch] = useReducer(todosReducer, []);
+	const [todos, dispatch] = useReducer(todosReducer, initialTodos);
 
 	const addTodo = (title: string) => {
-		dispatch({ type: "ADD_TODO", payload: title });
+		dispatch({ type: "ADD_TODO", title });
 	};
 
 	const toggleTodo = (id: number) => {
-		dispatch({ type: "TOGGLE_TODO", payload: id });
+		dispatch({ type: "TOGGLE_TODO", id });
 	};
 
 	const editTodo = (id: number, title: string) => {
-		dispatch({ type: "EDIT_TODO", payload: { id, title } });
+		dispatch({ type: "EDIT_TODO", id, title });
 	};
 
 	const deleteTodo = (id: number) => {
-		dispatch({ type: "DELETE_TODO", payload: id });
+		dispatch({ type: "DELETE_TODO", id });
 	};
 
 	const clearCompleted = () => {
