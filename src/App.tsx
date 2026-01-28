@@ -1,8 +1,10 @@
 import Header from "./components/layout/Header";
-import TodoInput from "./components/TodoInput";
-import TodoList from "./components/TodoList";
+import TodoInput from "./features/todos/components/TodoInput";
+import TodoList from "./features/todos/components/TodoList";
 import AddButton from "./components/ui/AddButton";
-import { useTodos } from "./hooks/useTodos";
+
+// import { useTodos } from "./features/todos/todos.hook";
+import { useTodos } from "@/features/todos";
 
 export default function App() {
 	const { todos, addTodo, toggleTodo, editTodo, deleteTodo, clearCompleted, completeAll, clearAll } = useTodos();
