@@ -1,7 +1,7 @@
 import React from "react";
 
-import TodoInput from "./components/TodoInput";
-import TodoList from "./components/TodoList";
+import TodoInput from "./features/todos/components/TodoInput";
+import TodoList from "./features/todos/components/TodoList";
 
 import { useState, useEffect } from "react";
 

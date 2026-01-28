@@ -1,7 +1,7 @@
 //@ts-check
 import React, { useState } from "react";
 
-import AddButton from "./ui/AddButton";
+import AddButton from "../../../components/ui/AddButton";
 
 interface InputProps {
 	onAddTodo: (value: string) => void;

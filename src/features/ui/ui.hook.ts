@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 
-import type { FilterType } from "../reducer/uiReducer";
-import type { UIState } from "../reducer/uiReducer";
-import { uiReducer } from "../reducer/uiReducer";
+import type { FilterType } from "./ui.reducer";
+import type { UIState } from "./ui.reducer";
+import { uiReducer } from "./ui.reducer";
 
 const initialUIState: UIState = {
 	filter: "all",
